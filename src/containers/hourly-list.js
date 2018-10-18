@@ -23,22 +23,27 @@ class HourlyList extends Component {
             loading: false,
         });
 
-        /*axios.get('')
-            .then(function (response) {
-                this.setState({
-                    weatherData: response.data,
-                    loading: false,
-                    error: false
-                });
-                console.log('done')
-            }.bind(this))
-            .catch(function (error) {
-                this.setState({
-                    loading: false,
-                    error: error
-                });
-                console.log('error')
-            }.bind(this));*/
+        /*navigator.geolocation.getCurrentPosition(
+            (position) => {
+                axios.get(`/forecast/${position.coords.latitude}/${position.coords.longitude}`)
+                .then(function (response) {
+                    this.setState({
+                        weatherData: response.data,
+                        loading: false,
+                        error: false
+                    });
+                    console.log('done')
+                }.bind(this))
+                .catch(function (error) {
+                    this.setState({
+                        loading: false,
+                        error: error
+                    });
+                    console.log('error')
+                }.bind(this));
+            },
+            (error) => this.setState({ error: error.message }),
+        );*/
     }
 
     renderList() {
