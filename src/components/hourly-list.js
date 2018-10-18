@@ -1,26 +1,29 @@
 import React, {Component} from "react";
 import {ScrollView, View, ActivityIndicator, StyleSheet, Dimensions} from 'react-native';
-import Info from '../components/info';
-import DailyItem from '../components/daily-item';
-import Summary from '../components/summary';
+import Info from './info'
+import HourlyItem from './hourly-item'
+import Summary from './summary';
 
-class DailyList extends Component {
-    renderList() {
-        if (this.props.screenProps.error) {
+const HourlyList = (props) => {
+    function renderList() {
+        if (props.error) {
             return (
                 <Info message={'An error occured'} />
             );
         }
+        const hourly = props.screenProps.weatherData.hourly.data.slice(0,23);
         return (
-            <View style={{flex: 1, flexWrap: 'wrap', flexDirection: 'row'}}>
-                <Summary summary={this.props.screenProps.weatherData.daily.summary}/>
-                {this.props.screenProps.weatherData.daily.data.slice(0, 7).map((hour, index) => {
+            <View style={{flexWrap: 'wrap', flexDirection: 'row'}}>
+                <Summary style={{height: 400}} summary={props.screenProps.weatherData.hourly.summary}/>
+                {hourly.map((hour, index) => {
                     return (
-                        <DailyItem
+                        <HourlyItem
                             index={index}
                             key={hour.time}
                             day={hour.time}
-                            temperatureMax={hour.temperatureMax}
+                            time={hour.time}
+                            temperature={hour.temperature}
+                            apparentTemperature={hour.apparentTemperature}
                             summary={hour.summary}
                             icon={hour.icon}
                             precipIntensity={hour.precipIntensity}
@@ -28,18 +31,17 @@ class DailyList extends Component {
                         />
                     );
                 })}
+
             </View>
         )
     }
 
-    render() {
-        return (
-            <ScrollView>
-                {this.props.screenProps.loading ? <View style={[styles.container, styles.horizontal]}><ActivityIndicator size="large" color="#bbc1f3" /></View>  : this.renderList()}
-            </ScrollView>
-        );
-    }
-}
+    return (
+        <ScrollView>
+            {props.screenProps.loading ? <View style={[styles.container, styles.horizontal]}><ActivityIndicator size="large" color="#bbc1f3" /></View> : renderList()}
+        </ScrollView>
+    );
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -54,4 +56,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default DailyList
+export default HourlyList

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {ScrollView, View} from 'react-native';
-import Navigation from './src/components/navigation'
+import Navigation from './src/containers/navigation'
 
 type Props = {};
 export default class App extends Component<Props> {

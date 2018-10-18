@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation';
-import DailyList from '../containers/daily-list';
-import HourlyList from '../containers/hourly-list';
+import DailyList from '../components/daily-list';
+import HourlyList from '../components/hourly-list';
 
 export default class Navigation extends Component {
     constructor(props) {
