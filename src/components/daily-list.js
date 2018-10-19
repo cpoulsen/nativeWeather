@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {ScrollView, View, ActivityIndicator, StyleSheet, Dimensions} from 'react-native';
+import {View, ActivityIndicator, StyleSheet, Dimensions, FlatList} from 'react-native';
 import Info from './info';
 import DailyItem from './daily-item';
 import Summary from './summary';
@@ -11,31 +11,37 @@ const DailyList = (props) => {
                 <Info message={'An error occured'} />
             );
         }
+        const daily = props.screenProps.weatherData.daily.data.slice(0, 8);
         return (
             <View style={{flex: 1, flexWrap: 'wrap', flexDirection: 'row'}}>
-                <Summary summary={props.screenProps.weatherData.daily.summary}/>
-                {props.screenProps.weatherData.daily.data.slice(0, 7).map((hour, index) => {
-                    return (
+                <FlatList
+                    data={daily}
+                    keyExtractor={item => item.time}
+                    ListHeaderComponent={() => (
+                        <Summary summary={props.screenProps.weatherData.daily.summary}/>
+                    )}
+                    numColumns={2}
+                    renderItem={({item, index}) => (
                         <DailyItem
                             index={index}
-                            key={hour.time}
-                            day={hour.time}
-                            temperatureMax={hour.temperatureMax}
-                            summary={hour.summary}
-                            icon={hour.icon}
-                            precipIntensity={hour.precipIntensity}
-                            windSpeed={hour.windSpeed}
+                            key={index}
+                            day={item.time}
+                            temperatureMax={item.temperatureMax}
+                            summary={item.summary}
+                            icon={item.icon}
+                            precipIntensity={item.precipIntensity}
+                            windSpeed={item.windSpeed}
                         />
-                    );
-                })}
+                    )}
+                />
             </View>
         )
     }
 
     return (
-        <ScrollView>
+        <View style={{flex: 1}}>
             {props.screenProps.loading ? <View style={[styles.container, styles.horizontal]}><ActivityIndicator size="large" color="#bbc1f3" /></View>  : renderList()}
-        </ScrollView>
+        </View>
     );
 };
 

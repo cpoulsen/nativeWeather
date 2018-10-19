@@ -13,7 +13,6 @@ const Summary = ({summary}) => {
 
 const styles = StyleSheet.create({
     container: {
-        width: 50+'%',
         backgroundColor: "#bbc1f3",
         justifyContent: 'center',
         alignItems: 'center',
@@ -21,6 +20,7 @@ const styles = StyleSheet.create({
         paddingBottom: 20,
     },
     summary: {
+        textAlign: 'center',
         color: "#fff",
         paddingLeft: 20,
         paddingRight: 20

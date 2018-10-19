@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {ScrollView, View, ActivityIndicator, StyleSheet, Dimensions} from 'react-native';
+import {View, ActivityIndicator, FlatList, StyleSheet, Dimensions} from 'react-native';
 import Info from './info'
 import HourlyItem from './hourly-item'
 import Summary from './summary';
@@ -11,35 +11,39 @@ const HourlyList = (props) => {
                 <Info message={'An error occured'} />
             );
         }
-        const hourly = props.screenProps.weatherData.hourly.data.slice(0,23);
+        const hourly = props.screenProps.weatherData.hourly.data.slice(0,24);
         return (
-            <View style={{flexWrap: 'wrap', flexDirection: 'row'}}>
-                <Summary style={{height: 400}} summary={props.screenProps.weatherData.hourly.summary}/>
-                {hourly.map((hour, index) => {
-                    return (
+            <View style={{flex: 1, flexWrap: 'wrap', flexDirection: 'row'}}>
+                <FlatList
+                    data={hourly}
+                    keyExtractor={item => item.time}
+                    ListHeaderComponent={() => (
+                        <Summary summary={props.screenProps.weatherData.hourly.summary}/>
+                    )}
+                    numColumns={2}
+                    renderItem={({item, index}) => (
                         <HourlyItem
                             index={index}
-                            key={hour.time}
-                            day={hour.time}
-                            time={hour.time}
-                            temperature={hour.temperature}
-                            apparentTemperature={hour.apparentTemperature}
-                            summary={hour.summary}
-                            icon={hour.icon}
-                            precipIntensity={hour.precipIntensity}
-                            windSpeed={hour.windSpeed}
+                            key={index}
+                            day={item.time}
+                            time={item.time}
+                            temperature={item.temperature}
+                            apparentTemperature={item.apparentTemperature}
+                            summary={item.summary}
+                            icon={item.icon}
+                            precipIntensity={item.precipIntensity}
+                            windSpeed={item.windSpeed}
                         />
-                    );
-                })}
-
+                        )}
+                    />
             </View>
         )
     }
 
     return (
-        <ScrollView>
+        <View style={{flex: 1}}>
             {props.screenProps.loading ? <View style={[styles.container, styles.horizontal]}><ActivityIndicator size="large" color="#bbc1f3" /></View> : renderList()}
-        </ScrollView>
+        </View>
     );
 };
 

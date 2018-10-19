@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation';
+import axios from 'axios';
 import DailyList from '../components/daily-list';
 import HourlyList from '../components/hourly-list';
 
@@ -24,7 +25,7 @@ export default class Navigation extends Component {
 
         /*navigator.geolocation.getCurrentPosition(
             (position) => {
-                axios.get(`/forecast/${position.coords.latitude}/${position.coords.longitude}`)
+                axios.get(`https://cpweather.herokuapp.com/api/forecast/${position.coords.latitude}/${position.coords.longitude}`)
                 .then(function (response) {
                     this.setState({
                         weatherData: response.data,
@@ -69,7 +70,7 @@ export default class Navigation extends Component {
             }
         );
         return (
-            <View style={{ flex: 1 }}>
+            <View style={{flex: 1}}>
                 <Navigator screenProps={{ weatherData: this.state.weatherData, error: this.state.error, loading: this.state.loading }}  />
             </View>
          );
