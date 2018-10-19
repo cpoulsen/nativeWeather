@@ -25,7 +25,7 @@ export default class Navigation extends Component {
 
         /*navigator.geolocation.getCurrentPosition(
             (position) => {
-                axios.get(`https://cpweather.herokuapp.com/api/forecast/${position.coords.latitude}/${position.coords.longitude}`)
+                axios.get(`forecast/${position.coords.latitude}/${position.coords.longitude}`)
                 .then(function (response) {
                     this.setState({
                         weatherData: response.data,
