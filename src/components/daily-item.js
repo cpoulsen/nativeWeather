@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {View, Text, StyleSheet} from 'react-native';
 import { theDay, roundingDecimal} from "../helpers";
 
-const swapColorAtIndex = [2, 3, 6, 7, 10, 11, 14, 15, 18, 19, 22];
+const swapColorAtIndex = [1, 2, 5, 6, 9, 10, 13, 14, 17, 18, 21, 22];
 
 const DailyItem = (props) => {
     return (
@@ -44,7 +44,9 @@ const styles = StyleSheet.create({
         textShadowOffset: {width: -1, height: 1},
         textShadowRadius: 10,
         marginBottom: 10,
-        textAlign: 'center'
+        textAlign: 'center',
+        paddingLeft: 15,
+        paddingRight: 15
     },
     largeText: {
         color: '#ffffff',
